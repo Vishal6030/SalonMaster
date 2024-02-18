@@ -29,5 +29,5 @@ public class Salon {
 
     @OneToMany(mappedBy = "salon")
     private List<Services> services;
-    
+
 }

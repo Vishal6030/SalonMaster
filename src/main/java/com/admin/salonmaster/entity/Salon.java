@@ -1,13 +1,17 @@
 package com.admin.salonmaster.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Salon {
 
     @Id
@@ -29,5 +33,10 @@ public class Salon {
 
     @OneToMany(mappedBy = "salon")
     private List<Services> services;
+
+    @ElementCollection
+    @CollectionTable(name = "salons_packageIds", joinColumns = @JoinColumn(name = "salon_id"))
+    @Column(name = "package_id")
+    private List<Long> packageIds;
 
 }

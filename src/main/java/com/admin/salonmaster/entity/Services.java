@@ -28,5 +28,5 @@ public class Services {
     @JoinColumn(name = "salon_id")
     @JsonIgnore
     private Salon salon;
-    
+
 }

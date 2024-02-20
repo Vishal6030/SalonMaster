@@ -14,6 +14,7 @@ public class SalonDTO {
     private String addressUrl;
     private String salonLogo;
     private Date registeredOn;
+    private Date trialPeriodStartDate;
     private Boolean status; //  Enable/Disable of salon status
     private String qrCode;
     private Boolean sms;

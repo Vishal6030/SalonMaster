@@ -16,11 +16,12 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long customerId;
     private String name;
+    private String phone;
     private String email;
     private LocalDate startDate;
     private Integer birthDate;
     private Integer birthMonth;
-    private String Gender;
+    private String gender;
     private String type; //Gold,Silver or Diamond.
 
     @ManyToOne

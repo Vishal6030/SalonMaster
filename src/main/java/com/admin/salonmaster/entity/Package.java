@@ -1,14 +1,13 @@
 package com.admin.salonmaster.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -25,5 +24,18 @@ public class Package {
     private LocalDate startDate;
     private LocalDate endDate;
     private Boolean status;
+
+    @ManyToMany
+    @JoinTable(
+            name = "package_service",
+            joinColumns = @JoinColumn(name = "package_id"),
+            inverseJoinColumns = @JoinColumn(name = "service_id")
+    )
+    private List<Services> services;
+
+    @ManyToOne
+    @JoinColumn(name = "salon_id")
+    @JsonIgnore
+    private Salon salon;
 
 }

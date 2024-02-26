@@ -32,4 +32,9 @@ public class SalonController {
     public ResponseEntity<Object> getSalonDataById(@PathVariable Long salonId){
         return salonService.getSalonDataById(salonId);
     }
+
+    @PatchMapping("/updateStatus/{salonId}")
+    public ResponseEntity<Object> updateSalonStatus(@PathVariable Long salonId, @RequestParam Boolean status){
+        return salonService.updateSalonStatus(salonId, status);
+    }
 }

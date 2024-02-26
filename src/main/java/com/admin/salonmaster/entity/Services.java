@@ -24,6 +24,7 @@ public class Services {
     private Boolean status;
     private String serviceType;
 
+
     @ManyToOne
     @JoinColumn(name = "salon_id")
     @JsonIgnore

@@ -68,6 +68,20 @@ public class SalonServiceImpl implements SalonService {
         }
     }
 
+    @Override
+    public ResponseEntity<Object> updateSalonStatus(Long salonId, Boolean status) {
+        ResponseDTO response= new ResponseDTO();
+        Salon salon= salonRepo.findById(salonId).orElse(null);
+        if(salon !=null){
+            salon.setStatus(status);
+            salonRepo.save(salon);
+            response.setMessage("Salon status updated successfully!");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        response.setMessage("Salon id not found!");
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
     private Salon convertDTOToEntity(SalonDTO salonDTO) {
         Salon salon = new Salon();
         salon.setSalonId(salonDTO.getSalonId());

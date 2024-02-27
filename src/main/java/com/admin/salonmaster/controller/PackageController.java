@@ -1,5 +1,6 @@
 package com.admin.salonmaster.controller;
 
+import com.admin.salonmaster.dto.PackageDTO;
 import com.admin.salonmaster.entity.Package;
 import com.admin.salonmaster.service.PackageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +15,13 @@ public class PackageController {
     private PackageService packageService;
 
     @PostMapping("/addPackage")
-    public ResponseEntity<Object> addPackage(@RequestBody Package packages){
-        return packageService.addPackage(packages);
+    public ResponseEntity<Object> addPackage(@RequestBody PackageDTO packageDTO){
+        return packageService.addPackage(packageDTO);
     }
 
     @PutMapping("/updatePackages")
-    public ResponseEntity<Object> updatePackage(@RequestBody Package packages){
-        return packageService.updatePackage(packages);
+    public ResponseEntity<Object> updatePackage(@RequestBody PackageDTO packageDTO){
+        return packageService.updatePackage(packageDTO);
     }
 
     @GetMapping("/getServicesByPackageId/{packageId}")

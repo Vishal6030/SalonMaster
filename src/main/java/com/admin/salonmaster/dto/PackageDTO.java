@@ -1,12 +1,17 @@
 package com.admin.salonmaster.dto;
 
-import com.admin.salonmaster.entity.Salon;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PackageDTO {
     private Long packageId;
     private String packageName;
@@ -15,5 +20,7 @@ public class PackageDTO {
     private LocalDate startDate;
     private LocalDate endDate;
     private Boolean status;
+
+    private List<Long> services;
     private Long salonId;
 }

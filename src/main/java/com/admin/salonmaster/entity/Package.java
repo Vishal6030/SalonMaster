@@ -25,13 +25,18 @@ public class Package {
     private LocalDate endDate;
     private Boolean status;
 
-    @ManyToMany
-    @JoinTable(
-            name = "package_service",
-            joinColumns = @JoinColumn(name = "package_id"),
-            inverseJoinColumns = @JoinColumn(name = "service_id")
-    )
-    private List<Services> services;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "package_service",
+//            joinColumns = @JoinColumn(name = "package_id"),
+//            inverseJoinColumns = @JoinColumn(name = "service_id")
+//    )
+//    private List<Services> services;
+
+    @ElementCollection
+    @CollectionTable(name = "package_service", joinColumns = @JoinColumn(name = "package_id"))
+    @Column(name = "service_id")
+    private List<Long> services;
 
     @ManyToOne
     @JoinColumn(name = "salon_id")

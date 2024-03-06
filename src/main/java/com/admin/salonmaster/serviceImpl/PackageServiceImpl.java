@@ -55,8 +55,28 @@ public class PackageServiceImpl implements PackageService {
 
     @Override
     public ResponseEntity<Object> updatePackage(PackageDTO packageDTO) {
-        return null;
+        Optional<Package> packageOptional = packageRepo.findById(packageDTO.getPackageId());
+        if (packageOptional.isPresent()) {
+            Package existingPackage = packageOptional.get();
+
+            // Update package properties with values from packageDTO
+            existingPackage.setPackageName(packageDTO.getPackageName());
+            existingPackage.setPrice(packageDTO.getPrice());
+            existingPackage.setDiscountPrice(packageDTO.getDiscountPrice());
+            existingPackage.setStartDate(packageDTO.getStartDate());
+            existingPackage.setEndDate(packageDTO.getEndDate());
+            existingPackage.setStatus(packageDTO.getStatus());
+//            existingPackage.setSalon(packageRepo.findById(packageDTO.getPackageId()).get().getSalon());
+            existingPackage.setServices(packageDTO.getServices());
+
+            // Save the updated package entity
+            Package updatedPackage = packageRepo.save(existingPackage);
+            return new ResponseEntity<>(updatedPackage, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Package not found!", HttpStatus.NOT_FOUND);
+        }
     }
+
 
     @Override
     public ResponseEntity<Object> viewServicesByPackageId(Long packageId) {
@@ -65,7 +85,7 @@ public class PackageServiceImpl implements PackageService {
             Package packageEntity = packageOptional.get();
             List<Long> serviceIds = packageEntity.getServices();
             List<Services> services = servicesRepo.findAllById(serviceIds);
-            return new ResponseEntity<>(services, HttpStatus.OK);
+            return new ResponseEntity<>(serviceIds, HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Package not found", HttpStatus.NOT_FOUND);
         }

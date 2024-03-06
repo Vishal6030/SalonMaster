@@ -11,4 +11,5 @@ public interface PackageService {
     public ResponseEntity<Object> viewServicesByPackageId(Long packageId);
     public ResponseEntity<Object> getPackageById(Long packageId);
     public ResponseEntity<Object> updatePackageStatus(Long packageId, Boolean status);
+
 }

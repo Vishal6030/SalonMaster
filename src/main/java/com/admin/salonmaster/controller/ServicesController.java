@@ -1,6 +1,7 @@
 package com.admin.salonmaster.controller;
 
 
+import com.admin.salonmaster.dto.ServicesDTO;
 import com.admin.salonmaster.entity.Services;
 import com.admin.salonmaster.service.ServicesList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +16,18 @@ public class ServicesController {
     private ServicesList services;
 
     @PostMapping("/add")
-    ResponseEntity<Object> addService(Services service){
-        return services.addService(service);
+    ResponseEntity<Object> addService(@RequestBody ServicesDTO servicesDTO){
+        return services.addService(servicesDTO);
     }
 
     @PutMapping("/update")
-    ResponseEntity<Object> updateService(Services service){
+    ResponseEntity<Object> updateService(@RequestBody Services service){
         return services.updateService(service);
     }
 
     @PatchMapping("/updateStatus/{serviceId}")
-    ResponseEntity<Object> updateServiceStatus(@PathVariable Long serviceId){
-        return services.updateServiceStatus(serviceId);
+    ResponseEntity<Object> updateServiceStatus(@PathVariable Long serviceId,@RequestParam Boolean status){
+        return services.updateServiceStatus(serviceId,status);
     }
 
     @GetMapping("/getById/{serviceId}")

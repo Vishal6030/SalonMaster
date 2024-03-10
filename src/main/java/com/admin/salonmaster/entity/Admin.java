@@ -16,9 +16,9 @@ import lombok.NoArgsConstructor;
 public class Admin {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long adminId;
     private Long salonId;
-    private String userName;
+    private String username;
     private String password;
 }

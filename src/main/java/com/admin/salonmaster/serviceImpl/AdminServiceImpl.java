@@ -1,5 +1,6 @@
 package com.admin.salonmaster.serviceImpl;
 
+import com.admin.salonmaster.dto.AdminLoginDTO;
 import com.admin.salonmaster.dto.ResponseDTO;
 import com.admin.salonmaster.entity.Admin;
 import com.admin.salonmaster.entity.Salon;
@@ -11,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 
 @Service
@@ -43,8 +46,19 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public ResponseEntity<Object> unlockLoginStatus(String salonId) {
-        return null;
+    public ResponseEntity<Object> loginByUsername(AdminLoginDTO adminLoginDTO) {
+        ResponseDTO response= new ResponseDTO();
+        Admin admin= adminRepo.findByUsername(adminLoginDTO.getUsername());
+        if(admin == null){
+            response.setMessage(("Username is invalid!"));
+            return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
+        }
+        if(Objects.equals(admin.getPassword(), passwordEncoder(adminLoginDTO.getPassword()))){
+            return new ResponseEntity<>(admin,HttpStatus.OK);
+        }else{
+            response.setMessage("Password is wrong! Please Try again or contact administrator.");
+            return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Override

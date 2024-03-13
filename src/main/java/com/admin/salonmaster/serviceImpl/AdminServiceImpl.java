@@ -10,9 +10,9 @@ import com.admin.salonmaster.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
 import java.util.Objects;
 
 
@@ -22,7 +22,7 @@ public class AdminServiceImpl implements AdminService {
     private EmailService emailService;
     private AdminRepo adminRepo;
 
-    private PasswordEncoder passwordEncoder;
+    //private PasswordEncoder passwordEncoder;
 
     @Autowired
     private SalonRepo salonRepo;
@@ -36,8 +36,8 @@ public class AdminServiceImpl implements AdminService {
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 //        emailService.sendSimpleMail(emp.getEmail(), "Login password Details", sendPasswordEmail(userEntity.getPassword(), emp));
-
-        admin.setPassword(passwordEncoder(admin.getPassword()));
+        String encodedString = Base64.getEncoder().encodeToString(admin.getPassword().getBytes());
+        admin.setPassword(encodedString);
 
         adminRepo.save(admin);
 
@@ -53,7 +53,9 @@ public class AdminServiceImpl implements AdminService {
             response.setMessage(("Username is invalid!"));
             return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
         }
-        if(Objects.equals(admin.getPassword(), passwordEncoder(adminLoginDTO.getPassword()))){
+        String encodedString = Base64.getEncoder().encodeToString(adminLoginDTO.getPassword().getBytes());
+
+        if(Objects.equals(admin.getPassword(), encodedString)){
             return new ResponseEntity<>(admin,HttpStatus.OK);
         }else{
             response.setMessage("Password is wrong! Please Try again or contact administrator.");
@@ -66,7 +68,7 @@ public class AdminServiceImpl implements AdminService {
         return null;
     }
 
-    public String passwordEncoder(String password) {
-        return passwordEncoder.encode(password);
-    }
+//    public String passwordEncoder(String password) {
+//        return passwordEncoder.encode(password);
+//    }
 }

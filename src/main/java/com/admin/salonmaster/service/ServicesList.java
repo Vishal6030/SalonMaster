@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 public interface ServicesList {
 
     ResponseEntity<Object> addService(ServicesDTO ServicesDTO);
-    ResponseEntity<Object> updateService(Services service);
+    ResponseEntity<Object> updateService(ServicesDTO servicesDTO);
     ResponseEntity<Object> updateServiceStatus(Long serviceId, Boolean status);
     ResponseEntity<Object> getServiceById(Long serviceId);
 

@@ -21,8 +21,8 @@ public class ServicesController {
     }
 
     @PutMapping("/update")
-    ResponseEntity<Object> updateService(@RequestBody Services service){
-        return services.updateService(service);
+    ResponseEntity<Object> updateService(@RequestBody ServicesDTO servicesDTO){
+        return services.updateService(servicesDTO);
     }
 
     @PatchMapping("/updateStatus/{serviceId}")

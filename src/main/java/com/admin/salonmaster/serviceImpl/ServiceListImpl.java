@@ -46,8 +46,22 @@ public class ServiceListImpl implements ServicesList {
     }
 
     @Override
-    public ResponseEntity<Object> updateService(Services service) {
-        return null;
+    public ResponseEntity<Object> updateService(ServicesDTO servicesDTO) {
+        ResponseDTO response= new ResponseDTO();
+        Services services= servicesRepo.findById(servicesDTO.getServiceId()).orElse(null);
+        if(services != null){
+            services.setServiceName(servicesDTO.getServiceName());
+            services.setDetails(servicesDTO.getDetails());
+            services.setServicePic(servicesDTO.getServicePic());
+            services.setPrice(servicesDTO.getPrice());
+            services.setDiscountPrice(servicesDTO.getDiscountPrice());
+            services.setStatus(servicesDTO.getStatus());
+            services.setServiceType(servicesDTO.getServiceType());
+
+            return new ResponseEntity<>(servicesRepo.save(services), HttpStatus.OK);
+        }
+            response.setMessage("Not able to add Services! Please Try Again !");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @Override

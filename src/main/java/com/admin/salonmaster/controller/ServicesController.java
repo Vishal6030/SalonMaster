@@ -2,7 +2,6 @@ package com.admin.salonmaster.controller;
 
 
 import com.admin.salonmaster.dto.ServicesDTO;
-import com.admin.salonmaster.entity.Services;
 import com.admin.salonmaster.service.ServicesList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

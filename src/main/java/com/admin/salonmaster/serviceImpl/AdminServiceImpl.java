@@ -51,13 +51,23 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public ResponseEntity<Object> loginByUsername(AdminLoginDTO adminLoginDTO) {
+    public ResponseEntity<Object> loginByUsernameOrPhone(AdminLoginDTO adminLoginDTO) {
         ResponseDTO response= new ResponseDTO();
-        Admin admin= adminRepo.findByUsername(adminLoginDTO.getUsername());
-        if(admin == null){
-            response.setMessage(("Username is invalid!"));
-            return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
+        Admin admin= new Admin();
+        if(adminLoginDTO.getUsername() != null && ! adminLoginDTO.getUsername().isEmpty()){
+             admin= adminRepo.findByUsername(adminLoginDTO.getUsername());
+            if(admin == null){
+                response.setMessage(("Username is invalid!"));
+                return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
+            }
+        }else{
+             admin= adminRepo.findByPhone(adminLoginDTO.getPhone());
+            if(admin == null){
+                response.setMessage(("Phone number is invalid!"));
+                return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
+            }
         }
+
         String encodedString = Base64.getEncoder().encodeToString(adminLoginDTO.getPassword().getBytes());
 
         if(Objects.equals(admin.getPassword(), encodedString)){

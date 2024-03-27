@@ -24,9 +24,9 @@ public class AdminController {
         return adminService.addAdmin(admin);
     }
 
-    @PostMapping("/login/username")
+    @PostMapping("/login/usernameOrPhone")
     public ResponseEntity<Object> loginByUsername(@RequestBody AdminLoginDTO adminLoginDTO){
-        return adminService.loginByUsername(adminLoginDTO);
+        return adminService.loginByUsernameOrPhone(adminLoginDTO);
     }
 
     @PostMapping("/login/phone")

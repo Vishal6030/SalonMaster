@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface AdminService {
     ResponseEntity<Object> addAdmin(Admin admin);
-    ResponseEntity<Object> loginByUsername(AdminLoginDTO adminLoginDTO);
+    ResponseEntity<Object> loginByUsernameOrPhone(AdminLoginDTO adminLoginDTO);
     ResponseEntity<Object> loginByPhone(AdminPhoneLoginDTO adminPhoneLoginDTO);
 
     ResponseEntity<Object> changePassword(ChangePasswordDTO changePasswordDTO);

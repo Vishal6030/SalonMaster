@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Entity
@@ -28,6 +29,9 @@ public class Customer {
     @JoinColumn(name = "salon_id")
     @JsonIgnore
     private Salon salon;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Booking> bookings;
 
     public Customer() {
         this.startDate = LocalDate.now();

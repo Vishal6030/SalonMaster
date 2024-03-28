@@ -26,12 +26,14 @@ public class Booking {
     @JoinColumn(name = "customer_id")
     @JsonIgnore
     private Customer customer;
+
     private LocalDate slotAllocatedDate;
     private LocalTime slotAllocatedTime;
     private Boolean status;
     private String remarks;
     private Boolean advancePayment;
     private Boolean IsBookingConfirm;
+    private String bookingStatus ;   //default it will "Open" otherwise "Closed".
 
     @ManyToMany
     @JoinTable(
